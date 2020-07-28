@@ -15,5 +15,6 @@ namespace AossApi.Models
         public DbSet<AossOgrenci> AossOgrenci { get; set; }
         public DbSet<AossYonetici> AossYonetici { get; set; }
 
+        public DbSet<AossSorular> AossSorular   { get; set; }
     }
 }

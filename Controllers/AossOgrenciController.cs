@@ -89,7 +89,7 @@ namespace AossAPI.Controllers
             _context.AossOgrenci.Add(aossOgrenci);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction("GetAossOgrenci", new { id = aossOgrenci.Id }, aossOgrenci);
+            return CreatedAtAction(nameof(GetAossOgrenci), new { id = aossOgrenci.Id }, aossOgrenci);
         }
 
         // DELETE: api/AossOgrenci/5
