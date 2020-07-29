@@ -13,5 +13,5 @@ namespace AossAPI.Models{
         public int BosS { get; set; }
         public int Puan { get; set; }
     }   
-//dotnet aspnet-codegenerator controller -name AossHocaController -async -api -m AossHoca -dc AossContext -outDir Controllers
+//dotnet aspnet-codegenerator controller -name AossOnlineSinavOgrenciController -async -api -m AossOnlineSinavOgrenci -dc AossContext -outDir Controllers
 }
