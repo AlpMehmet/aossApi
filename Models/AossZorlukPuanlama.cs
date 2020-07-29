@@ -5,13 +5,13 @@ namespace AossAPI.Models{
     {
         public long Id { get; set; }
          [Required]
-        public string KolayPuan { get; set; }
+        public float KolayPuan { get; set; }
          [Required]
-        public string OrtaPuan { get; set; }
+        public float OrtaPuan { get; set; }
          [Required]
-        public string ZorPuan { get; set; }
+        public float ZorPuan { get; set; }
          [Required]
-         public string OnlineSinavId { get; set; }
+         public long OnlineSinavId { get; set; }
     }   
-//dotnet aspnet-codegenerator controller -name AossHocaController -async -api -m AossHoca -dc AossContext -outDir Controllers
+//dotnet aspnet-codegenerator controller -name AossZorlukPuanlamaController -async -api -m AossZorlukPuanlama -dc AossContext -outDir Controllers
 }

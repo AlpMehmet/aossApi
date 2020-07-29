@@ -41,19 +41,10 @@ namespace AossAPI.Controllers
 
             return aossHoca;
         }
-        [HttpGet("{Mail}/{Sifre}")]
-        public long Giris(string Mail, string Sifre)
-        {
-            AossHoca a = _context.AossHoca.Where(x => x.Mail == Mail && x.Sifre == Sifre).FirstOrDefault();
-            if(a==null){
-                return -1;
-            }
-            else{
-                return a.Id;
-            }
-        }               
 
         // PUT: api/AossHoca/5
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAossHoca(long id, AossHoca aossHoca)
         {
@@ -84,14 +75,15 @@ namespace AossAPI.Controllers
         }
 
         // POST: api/AossHoca
+        // To protect from overposting attacks, enable the specific properties you want to bind to, for
+        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
         [HttpPost]
         public async Task<ActionResult<AossHoca>> PostAossHoca(AossHoca aossHoca)
         {
             _context.AossHoca.Add(aossHoca);
             await _context.SaveChangesAsync();
 
-           // return CreatedAtAction("GetAossHoca", new { id = aossHoca.Id }, aossHoca);
-           return CreatedAtAction(nameof(GetAossHoca), new { id = aossHoca.Id }, aossHoca);
+            return CreatedAtAction("GetAossHoca", new { id = aossHoca.Id }, aossHoca);
         }
 
         // DELETE: api/AossHoca/5

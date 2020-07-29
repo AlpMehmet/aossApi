@@ -5,13 +5,13 @@ namespace AossAPI.Models{
     {
         public long Id { get; set; }
          [Required]
-        public string OgId { get; set; }
+        public int OgId { get; set; }
          [Required]
-        public string OnlineSinavId { get; set; }
-        public string DogruS { get; set; }
-        public string YanlisS { get; set; }
-        public string BosS { get; set; }
-        public string Puan { get; set; }
+        public int OnlineSinavId { get; set; }
+        public int DogruS { get; set; }
+        public int YanlisS { get; set; }
+        public int BosS { get; set; }
+        public int Puan { get; set; }
     }   
 //dotnet aspnet-codegenerator controller -name AossHocaController -async -api -m AossHoca -dc AossContext -outDir Controllers
 }

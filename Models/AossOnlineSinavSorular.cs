@@ -6,10 +6,10 @@ namespace AossAPI.Models{
     {
         public long Id { get; set; }
          [Required]
-        public string OturumKodu { get; set; }
+        public long OnlineSinavId { get; set; }
          [Required]
-        public string SoruId { get; set; }
+        public long SoruId { get; set; }
 
     }   
-//dotnet aspnet-codegenerator controller -name AossSorularController -async -api -m AossSorular -dc AossContext -outDir Controllers
+//dotnet aspnet-codegenerator controller -name AossOnlineSinavSorularController -async -api -m AossOnlineSinavSorular -dc AossContext -outDir Controllers
 }

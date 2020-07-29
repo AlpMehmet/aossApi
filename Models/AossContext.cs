@@ -16,13 +16,9 @@ namespace AossApi.Models
         public DbSet<AossYonetici> AossYonetici { get; set; }
 
         public DbSet<AossSorular> AossSorular   { get; set; }
-
-        public DbSet<AossAPI.Models.AossOnlineSinavOgrenci> AossOnlineSinavOgrenci { get; set; }
-
-        public DbSet<AossAPI.Models.AossOnlineSinav> AossOnlineSinav { get; set; }
-
-        public DbSet<AossAPI.Models.AossOnlineSinavSorular> AossOnlineSinavSorular { get; set; }
-
-        public DbSet<AossAPI.Models.AossZorlukPuanlama> AossZorlukPuanlama { get; set; }
+        public DbSet<AossOnlineSinav> AossOnlineSinav   { get; set; }
+        public DbSet<AossOnlineSinavSorular> AossOnlineSinavSorular   { get; set; }
+        public DbSet<AossZorlukPuanlama> AossZorlukPuanlama   { get; set; }
+        public DbSet<AossOnlineSinavOgrenci> AossOnlineSinavOgrenci   { get; set; }
     }
 }
