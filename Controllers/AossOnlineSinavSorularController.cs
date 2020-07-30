@@ -84,9 +84,11 @@ namespace AossAPI.Controllers
             int kolayS = 0, zorS = 0, ortaS = 0, diziBoyut=0,dizidesira=0;            
             AossZorlukPuanlama seciliSinavZorluk = _context.AossZorlukPuanlama.Where(x => x.OnlineSinavId == aossOnlineSinavSorular.OnlineSinavId).FirstOrDefault();
             List<AossOnlineSinavSorular> sorular = _context.AossOnlineSinavSorular.Where(x => x.OnlineSinavId == aossOnlineSinavSorular.OnlineSinavId).ToList();
-            int kacSoru = _context.AossOnlineSinavSorular.Where(x => x.OnlineSinavId == aossOnlineSinavSorular.OnlineSinavId).Count();
-            AossSorular eklenmekIstenen = _context.AossSorular.Where(x => x.Id == aossOnlineSinavSorular.SoruId).FirstOrDefault();
 
+            AossSorular eklenmekIstenen = _context.AossSorular.Where(x => x.Id == aossOnlineSinavSorular.SoruId).FirstOrDefault();
+            int kolaySoruSayisi = _context.AossSorular.Where(x => x.SoruAlani == eklenmekIstenen.SoruAlani && x.Zorluk == "KOLAY" ).Count();
+            int ortaSoruSayisi = _context.AossSorular.Where(x => x.SoruAlani == eklenmekIstenen.SoruAlani && x.Zorluk == "ORTA" ).Count();
+            int zorSoruSayisi = _context.AossSorular.Where(x => x.SoruAlani == eklenmekIstenen.SoruAlani && x.Zorluk == "ZOR" ).Count();
             
             
             if(eklenmekIstenen.Zorluk=="ZOR"){
@@ -118,11 +120,11 @@ namespace AossAPI.Controllers
                    toplamPuan+=seciliSinavZorluk.KolayPuan;
                }
             }
-            for (int i = 0; i <= kacSoru; i++)
+            for (int i = 0; i <= kolaySoruSayisi; i++)
             {
-                for (int j = 0; j <= kacSoru; j++)
+                for (int j = 0; j <= ortaSoruSayisi; j++)
                 {
-                    for (int k = 0; k <= kacSoru; k++)
+                    for (int k = 0; k <= zorSoruSayisi; k++)
                     {
                         if(i*seciliSinavZorluk.KolayPuan+j*seciliSinavZorluk.OrtaPuan+k*seciliSinavZorluk.ZorPuan==100){
                             diziBoyut++;
@@ -131,17 +133,19 @@ namespace AossAPI.Controllers
                 }
             }
            float[,] kombinasyonlar = new float[diziBoyut, 3];
-            for (int i = 0; i <= kacSoru; i++)
+            for (int i = 0; i <= kolaySoruSayisi; i++)
             {
-                for (int j = 0; j <= kacSoru; j++)
+                for (int j = 0; j <= ortaSoruSayisi; j++)
                 {
-                    for (int k = 0; k <= kacSoru; k++)
+                    for (int k = 0; k <= zorSoruSayisi; k++)
                     {
                          if(i*seciliSinavZorluk.KolayPuan+j*seciliSinavZorluk.OrtaPuan+k*seciliSinavZorluk.ZorPuan==100){
-                        
+                            
                             kombinasyonlar[dizidesira,0] = i;
                             kombinasyonlar[dizidesira,1] = j;
                             kombinasyonlar[dizidesira,2] = k;
+                            dizidesira++;
+                            
                         }
                     }
                 }
@@ -185,7 +189,7 @@ namespace AossAPI.Controllers
                             return CreatedAtAction("GetAossOnlineSinavSorular", new { id = aossOnlineSinavSorular.Id }, aossOnlineSinavSorular);
                         }
                     }
-                    throw new ArgumentException("Zor Soru Ekleme Hakkınız Bitti "+kombinasyonlar[0,0]);
+                    throw new ArgumentException("Zor Soru Ekleme Hakkınız Bitti ");
                 }
               throw new ArgumentException("Hata");
             }
