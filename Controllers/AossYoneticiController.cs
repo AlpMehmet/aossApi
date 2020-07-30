@@ -84,7 +84,7 @@ namespace AossAPI.Controllers
 
         // POST: api/AossYonetici
         [HttpPost]
-        public async Task<ActionResult<AossYonetici>> PostAossYonetici(AossYonetici aossYonetici)
+        public async Task<ActionResult<AossYonetici>> PostAossYonetici( AossYonetici aossYonetici)
         {
             _context.AossYonetici.Add(aossYonetici);
             await _context.SaveChangesAsync();

@@ -28,18 +28,25 @@ namespace AossAPI
         {
             services.AddDbContext<AossContext>(opt =>
                opt.UseSqlServer("Data Source=.; Initial Catalog=AossDB; Integrated Security=True;"));
+            //    opt.UseSqlServer("Data Source=.\\SQLEXPRESS; Initial Catalog=AossDB; Integrated Security=True;"));
             services.AddControllers();
+            services.AddSwaggerGen();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseSwagger();
+             app.UseSwaggerUI(c =>
+    {
+        c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+    });
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
+            // app.UseHttpsRedirection();
 
             app.UseRouting();
 
