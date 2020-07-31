@@ -20,5 +20,6 @@ namespace AossApi.Models
         public DbSet<AossOnlineSinavSorular> AossOnlineSinavSorular   { get; set; }
         public DbSet<AossZorlukPuanlama> AossZorlukPuanlama   { get; set; }
         public DbSet<AossOnlineSinavOgrenci> AossOnlineSinavOgrenci   { get; set; }
+        public DbSet<AossHataliSorular> AossHataliSorular   { get; set; }
     }
 }
