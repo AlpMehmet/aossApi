@@ -73,9 +73,11 @@ namespace AossAPI.Controllers
                     AossOnlineSinavOgrenciSorular ogSoru = new AossOnlineSinavOgrenciSorular();
                     for (int i = 0; i < 6; i=i+2)
                     {
+                        if(i==4){
                         if(dogru==kontrol[5])
                         {
-                            
+                            break;
+                        }
                         }
                         if (kontrol[i]==1)
                         {
@@ -210,7 +212,7 @@ namespace AossAPI.Controllers
                                 ogSoru.D=gelensoru.Cevap4;
                             }                         
                         }
-                        if(i==4){
+                        if(i==2){
                             if(dogru==0) {
                                 ogSoru.DogruCevap="A";
                                 dogru=1;
