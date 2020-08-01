@@ -27,6 +27,209 @@ namespace AossAPI.Controllers
         {
             return await _context.AossOnlineSinavSorular.ToListAsync();
         }
+         
+        [HttpGet("KaydiBitir/{OnlineSinavId}")]
+        public long Giris(int OnlineSinavId)
+        {//AossOnlineSinavOgrenci
+            AossOnlineSinav sinav = _context.AossOnlineSinav.Where(x => x.Id == OnlineSinavId).FirstOrDefault();
+            if(sinav==null){
+                return -1;
+            }
+            else{
+               List<AossOgrenci> ogrenciler = _context.AossOgrenci.Where(x => x.Alani == sinav.Alan).ToList();
+               foreach (var ogrenci in ogrenciler)
+               {
+                AossOnlineSinavOgrenci aossOnlineSinavOgrenci = new AossOnlineSinavOgrenci();  
+                aossOnlineSinavOgrenci.OgId=Convert.ToInt32(ogrenci.Id);
+                aossOnlineSinavOgrenci.OnlineSinavId=OnlineSinavId;
+                _context.AossOnlineSinavOgrenci.Add(aossOnlineSinavOgrenci);
+                 _context.SaveChangesAsync();
+                
+                List<AossOnlineSinavSorular> sorular = _context.AossOnlineSinavSorular.Where(x => x.OnlineSinavId == OnlineSinavId).ToList();
+                foreach (var soru in sorular)
+                {
+                    AossSorular gelensoru = _context.AossSorular.Where(x => x.Id == soru.SoruId).FirstOrDefault();
+                    Random rastgele = new Random();
+                    int[] kontrol = new int[6];
+                    int say=0;
+                    bool durum=false;
+                    while (true)
+                    {    
+                         int a = rastgele.Next(1,5);
+                         for (int i = 0; i < say; i++)
+                         {
+                             if(kontrol[i]==a) durum=true;
+                         }
+                         if(!durum)
+                         {
+                             kontrol[say]=a;
+                             say++;
+                         }
+                         if(say==4) break;
+                    }
+                    int b = rastgele.Next(1,5);
+                    int dogru=0;
+                    kontrol[5]=b;
+                    AossOnlineSinavOgrenciSorular ogSoru = new AossOnlineSinavOgrenciSorular();
+                    for (int i = 0; i < 6; i=i+2)
+                    {
+                        if(dogru==kontrol[5])
+                        {
+                            
+                        }
+                        if (kontrol[i]==1)
+                        {
+                            if (kontrol[i+1]==2)
+                            {
+                                dogru=2;
+                                ogSoru.A=gelensoru.Cevap1;
+                                ogSoru.B=gelensoru.DogruCevap;
+                                ogSoru.DogruCevap="B";
+                            }
+                            else if (kontrol[i+1]==3)
+                            {
+                                dogru=3;
+                                ogSoru.A=gelensoru.Cevap2;
+                                ogSoru.C=gelensoru.DogruCevap;
+                                ogSoru.DogruCevap="C";
+                            }
+                            else if (kontrol[i+1]==4)
+                            {   
+                                dogru=4;
+                                ogSoru.A=gelensoru.Cevap3;
+                                ogSoru.D=gelensoru.DogruCevap;
+                                ogSoru.DogruCevap="D";
+                            }
+                            else if (kontrol[i+1]==5)
+                            {   
+                                dogru=5;
+                                ogSoru.A=gelensoru.Cevap4;
+                                ogSoru.E=gelensoru.DogruCevap;
+                                ogSoru.DogruCevap="E";
+                            }
+                        }
+                        else if (kontrol[i]==2)
+                        {
+                            if (kontrol[i+1]==1)
+                            {
+                                dogru=2;
+                                ogSoru.B=gelensoru.DogruCevap;
+                                ogSoru.A=gelensoru.Cevap1;
+                                ogSoru.DogruCevap="B";
+                            }
+                            else if (kontrol[i+1]==3)
+                            {
+                                ogSoru.B=gelensoru.Cevap2;
+                                ogSoru.C=gelensoru.Cevap1;
+                            }
+                            else if (kontrol[i+1]==4)
+                            {
+                                ogSoru.B=gelensoru.Cevap3;
+                                ogSoru.D=gelensoru.Cevap1;
+                            }
+                            else if (kontrol[i+1]==5)
+                            {
+                                ogSoru.B=gelensoru.Cevap4;
+                                ogSoru.E=gelensoru.Cevap1;
+                            }
+                        }
+                        else if (kontrol[i]==3)
+                        {
+                            if (kontrol[i+1]==1)
+                            {
+                                dogru=3;
+                                ogSoru.C=gelensoru.DogruCevap;
+                                ogSoru.A=gelensoru.Cevap2;
+                                ogSoru.DogruCevap="C";
+                            }
+                            else if (kontrol[i+1]==2)
+                            {
+                                ogSoru.C=gelensoru.Cevap1;
+                                ogSoru.B=gelensoru.Cevap2;
+                            }
+                            else if (kontrol[i+1]==4)
+                            {
+                                ogSoru.C=gelensoru.Cevap3;
+                                ogSoru.D=gelensoru.Cevap2;
+                            }
+                            else if (kontrol[i+1]==5)
+                            {
+                                ogSoru.C=gelensoru.Cevap4;
+                                ogSoru.E=gelensoru.Cevap2;
+                            }                            
+                        }
+                        else if (kontrol[i]==4)
+                        {
+                           
+                            if (kontrol[i+1]==1)
+                            {
+                                dogru=4;
+                                ogSoru.D=gelensoru.DogruCevap;
+                                ogSoru.A=gelensoru.Cevap3;
+                                ogSoru.DogruCevap="D";
+                            }
+                            else if (kontrol[i+1]==2)
+                            {
+                                ogSoru.D=gelensoru.Cevap1;
+                                ogSoru.B=gelensoru.Cevap3;
+                            }
+                            else if (kontrol[i+1]==3)
+                            {
+                                ogSoru.D=gelensoru.Cevap2;
+                                ogSoru.D=gelensoru.Cevap3;
+                            }
+                            else if (kontrol[i+1]==5)
+                            {
+                                ogSoru.D=gelensoru.Cevap4;
+                                ogSoru.E=gelensoru.Cevap3;
+                            }                               
+                        }
+                        else if (kontrol[i]==5)
+                        {
+                            
+                            if (kontrol[i+1]==1)
+                            {
+                                dogru=5;
+                                ogSoru.E=gelensoru.DogruCevap;
+                                ogSoru.A=gelensoru.Cevap4;
+                                ogSoru.DogruCevap="E";
+                            }
+                            else if (kontrol[i+1]==2)
+                            {
+                                ogSoru.E=gelensoru.Cevap1;
+                                ogSoru.B=gelensoru.Cevap4;
+                            }
+                            else if (kontrol[i+1]==3)
+                            {
+                                ogSoru.E=gelensoru.Cevap2;
+                                ogSoru.C=gelensoru.Cevap4;
+                            }
+                            else if (kontrol[i+1]==4)
+                            {
+                                ogSoru.E=gelensoru.Cevap3;
+                                ogSoru.D=gelensoru.Cevap4;
+                            }                         
+                        }
+                        if(i==4){
+                            if(dogru==0) {
+                                ogSoru.DogruCevap="A";
+                                dogru=1;
+                                }
+                        }
+                    }
+                    AossOnlineSinavOgrenci eklenenOnlineSinavOg = _context.AossOnlineSinavOgrenci.Where(x => x.OgId == ogrenci.Id && x.OnlineSinavId == OnlineSinavId).FirstOrDefault();
+                    ogSoru.OnlineSinavOgrenciId=eklenenOnlineSinavOg.Id;
+                    ogSoru.Soru=gelensoru.Soru;
+                    ogSoru.SoruId=gelensoru.Id;
+                    _context.AossOnlineSinavOgrenciSorular.Add(ogSoru);
+                    _context.SaveChangesAsync();
+ 
+                }
+
+               }
+            }
+            return 1;
+        }   
 
         // GET: api/AossOnlineSinavSorular/5
         [HttpGet("{id}")]

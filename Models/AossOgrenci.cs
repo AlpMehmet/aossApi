@@ -10,5 +10,7 @@ namespace AossAPI.Models{
         public string Sifre { get; set; }
         [Required]
         public string AdSoyad { get; set; }
+
+        public string Alani { get; set; }
     }   
 }
