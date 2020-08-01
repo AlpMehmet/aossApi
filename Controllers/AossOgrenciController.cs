@@ -107,7 +107,7 @@ namespace AossAPI.Controllers
                     }
                     dogruS++;
                 }
-                else if(soru.IsaretlenenCevap!=soru.DogruCevap),
+                else if(soru.IsaretlenenCevap!=soru.DogruCevap)
                 {
                     yanlisS++;
                 }
