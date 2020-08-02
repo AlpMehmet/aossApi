@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>AossAPI</name>
+    </assembly>
+    <members>
+        <member name="P:AossAPI.Models.AossHoca.Mail">
+            <summary>
+            Hocanın mail adresi
+            </summary>
+        </member>
+    </members>
+</doc>

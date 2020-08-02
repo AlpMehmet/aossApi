@@ -132,7 +132,6 @@ namespace AossAPI.Controllers
             return CreatedAtAction(nameof(GetAossSorular), new { id = aossSorular.Id }, aossSorular);
         }
 
-        // DELETE: api/AossSorular/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<AossSorular>> DeleteAossSorular(long id)
         {

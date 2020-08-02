@@ -259,3 +259,5 @@ C:\Users\pc\Desktop\aossApi\AossAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCo
 C:\Users\pc\Desktop\aossApi\AossAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerGen.dll
 C:\Users\pc\Desktop\aossApi\AossAPI\bin\Debug\netcoreapp3.1\Swashbuckle.AspNetCore.SwaggerUI.dll
 C:\Users\pc\Desktop\aossApi\AossAPI\obj\Debug\netcoreapp3.1\AossAPI.MvcApplicationPartsAssemblyInfo.cs
+C:\Users\pc\Desktop\aossApi\AossAPI\bin\Debug\netcoreapp3.1\AossAPI.xml
+C:\Users\pc\Desktop\aossApi\AossAPI\obj\Debug\netcoreapp3.1\AossAPI.xml

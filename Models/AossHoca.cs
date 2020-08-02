@@ -4,6 +4,10 @@ namespace AossAPI.Models{
     public class AossHoca
     {
         public long Id { get; set; }
+        
+        /// <summary>
+        /// Hocanın mail adresi
+        /// </summary>
         [Required]
         public string Mail { get; set; }
         [Required]

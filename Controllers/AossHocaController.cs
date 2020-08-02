@@ -21,7 +21,7 @@ namespace AossAPI.Controllers
             _context = context;
         }
 
-        // GET: api/AossHoca
+ 
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AossHoca>>> GetAossHoca()
         {

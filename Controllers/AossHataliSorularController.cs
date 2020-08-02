@@ -21,34 +21,25 @@ namespace AossAPI.Controllers
             _context = context;
         }
         // GET: api/AossHataliSorular
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AossHataliSorular>>> GetAossHataliSorular()
-        {
-            return await _context.AossHataliSorular.ToListAsync();
-        }
-        // GET: api/AossHataliSorular/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AossHataliSorular>> GetAossHataliSorular(long id)
-        {
-            var aossHataliSorular = await _context.AossHataliSorular.FindAsync(id);
-
-            if (aossHataliSorular == null)
-            {
-                return NotFound();
-            }
-
-            return aossHataliSorular;
-        }
         [HttpGet("{alan}")]
-         public async Task<ActionResult<IEnumerable<AossHataliSorular>>> GetAossHataliSorularAlanG(string Alan)
+        public ActionResult<IEnumerable<AossSorular>> GetAossHataliSorularSoru(string Alan)
         {
-           return await  _context.AossHataliSorular.Where(x => x.Alani == Alan).ToListAsync();
+            List<AossHataliSorular> hataliSorular = _context.AossHataliSorular.Where(x=> x.Alani==Alan).ToList();
+            List<AossSorular> sorular = new List<AossSorular>();
+            foreach (var hatali in hataliSorular)
+            {
+                sorular.Add( _context.AossSorular.Where(x => x.Id == hatali.SoruId).FirstOrDefault());
+            } 
+            
+            return  sorular;
         }
+
         [HttpPut("hatali/{id}")]
-         public async Task<IActionResult> PutAossHataliSorularHatali(long id )
+         public async Task<IActionResult> PutAossHataliSorularHatali(long id)
          {
+            AossSorular hataliSoru0 = _context.AossSorular.Where(x => x.Id == id).FirstOrDefault();
             AossHataliSorular aossHataliSorular  = new AossHataliSorular(); 
-            AossHataliSorular hataliSoru = _context.AossHataliSorular.Where(x => x.Id == id).FirstOrDefault();
+            AossHataliSorular hataliSoru = _context.AossHataliSorular.Where(x => x.SoruId == hataliSoru0.Id).FirstOrDefault();
             int kacHoca = _context.AossHoca.Where(x => x.Alani == hataliSoru.Alani).Count();
             int toplamOyVeren = hataliSoru.oylamaHatali+hataliSoru.oylamaHatasiz;
             
@@ -85,11 +76,12 @@ namespace AossAPI.Controllers
 
             return NoContent();
         }
-                [HttpPut("hatasiz/{id}")]
+        [HttpPut("hatasiz/{id}")]
          public async Task<IActionResult> PutAossHataliSorularHatasiz(long id )
          {
+            AossSorular hataliSoru0 = _context.AossSorular.Where(x => x.Id == id).FirstOrDefault();
             AossHataliSorular aossHataliSorular  = new AossHataliSorular(); 
-            AossHataliSorular hataliSoru = _context.AossHataliSorular.Where(x => x.Id == id).FirstOrDefault();
+            AossHataliSorular hataliSoru = _context.AossHataliSorular.Where(x => x.SoruId == hataliSoru0.Id).FirstOrDefault();
             int kacHoca = _context.AossHoca.Where(x => x.Alani == hataliSoru.Alani).Count();
             int toplamOyVeren = hataliSoru.oylamaHatali+hataliSoru.oylamaHatasiz;
             
