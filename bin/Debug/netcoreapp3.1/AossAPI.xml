@@ -4,9 +4,259 @@
         <name>AossAPI</name>
     </assembly>
     <members>
+        <member name="T:AossAPI.Models.AossHataliSorular">
+            <summary>
+            Hatalı Sorular Tablosu: Bu tabloya ui tarafında ekleme, silme, güncelleme yapılmaz. Bu tablonun amacı hatalı olan soruları tutmak ve oylamasının yapılmasıdır.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHataliSorular.Id">
+            <summary>
+            Hatalı Soru Id  bu veri eklenememeli çünkü kendisi otomatik oluşur.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHataliSorular.SoruId">
+            <summary>
+            Hatalı sorunun hangi soru olduğu verisi tutulur. Hatalı soru listelemek istendiğine bu tabloya erişim sağlanır ve sorular bu girdi sayesinde listelenir.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHataliSorular.Alani">
+            <summary>
+            Hatalı olarak işaretlenen sorunun alanı burada tutulur. Hocaya mail yollama ve ekranda gösterilecek alana ait hatalı sorular için.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHataliSorular.oylamaHatali">
+            <summary>
+            Soruyu hatalı olarak işaretletleyen hocaların sayısı tutulur.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHataliSorular.oylamaHatasiz">
+            <summary>
+            Soruyu hatasız olarak işaretletleyen hocaların sayısı tutulur. 
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHataliSorular.hataliMi">
+            <summary>
+            Kontrol işleminden dönen sonuç tutulur soru hatalı mı hatasız mı.
+            </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossHoca">
+            <summary>
+            Hoca Tablosu: Ui tarafında ekleme, silme, güncelleme işlemleri bu tablo için yapılabilir.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHoca.Id">
+            <summary>
+            Hoca id  bu veri eklenememeli çünkü kensidi otomatik oluşur.
+            </summary>
+        </member>
         <member name="P:AossAPI.Models.AossHoca.Mail">
             <summary>
-            Hocanın mail adresi
+            Hocanın mail adresi: giriş ve mail yollama işlemleri için
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHoca.Sifre">
+            <summary>
+            Hocanın Giriş Şifresi
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHoca.AdSoyad">
+            <summary>
+            Hocanın Ad Ve Soyadı
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossHoca.Alani">
+            <summary>
+            Hocanın alani veya dersi kriter olarak bir çok methodda gerekli 
+            </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossOgrenci">
+            <summary>
+            Öğrenci Tablosu: Ui tarafında ekleme, silme, güncelleme işlemleri bu tablo için yapılabilir.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOgrenci.Id">
+            <summary>
+            Öğrenci id bu veri eklenememeli çünkü kensidi otomatik oluşur.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOgrenci.OgrenciNo">
+            <summary>
+            Öğrencinin numarası giriş için
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOgrenci.Sifre">
+            <summary>
+            Öğrencinin şifresi giriş için
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOgrenci.AdSoyad">
+            <summary>
+            Öğrencinin ad soyadı
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOgrenci.Alani">
+            <summary>
+            Öğrencinin alanı gireceği sınavlar ve bunun gibi alan gerektiren işilemler için.
+            </summary>        
+        </member>
+        <member name="T:AossAPI.Models.AossOnlineSinav">
+            <summary>
+            Online Sınav Tablosu: Bu tabloya ui tarafında ekleme, silme, güncelleme yapılır. Sınav oluşturulurken ilk doldurulması gereken tablodur.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinav.Id">
+            <summary>
+            Online sınavın idsi   bu veri eklenememeli çünkü kensidi otomatik oluşur.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinav.Baslama">
+            <summary>
+            Sınavın başlama tarihi
+            </summary>    
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinav.Bitis">
+            <summary>
+            Sınavın bitiş tarihi
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinav.Sure">
+            <summary>
+            Sınav süresi
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinav.Alan">
+            <summary>
+            Soınavı oluşturan hocanın alanı
+            </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossOnlineSinavOgrenci">
+            <summary>
+            Online Sınav Ogrenci Tablosu: Bu tabloya ui tarafında ekleme, silme, güncelleme yapılmaz. Bu tablonun amacı öğrencilerin hangi sınavlara gireceği ve girdikleri sınavlardaki doğru yanlış ve boş sayılarının tutulması ve puanlamanın hesaplanması
+            </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossOnlineSinavOgrenciSorular">
+            <summary>
+            Online Sınav Ogrenci Sorular Tablosu: Bu tabloya ui tarafında ekleme, silme, güncelleme yapılmaz. Bu tablonun amacı öğrencilerin girecekleri sınavlara ait randomize değişmiş sorularını ve öğrencinin soruya verdiği cevabı tutmaktır.
+            </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossOnlineSinavSorular">
+            <summary>
+            Online Sınav  Sorular Tablosu: Bu tabloya ui tarafında ekleme, güncelleme, silme yapılır.Üççüncü olarak bu tablonun doldurulması gerekli. Bu tablonun amacı hocanın oluşturduğu sınava ait soruları tutması içindir.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinavSorular.Id">
+            <summary>
+            Ekleme Yaplırken boş bırakılmalı
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinavSorular.OnlineSinavId">
+             <summary>
+            Sorunun ekleneceği sınavvın idsi
+             </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossOnlineSinavSorular.SoruId">
+             <summary>
+            Eklenen Sorunun idsi
+             </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossSorular">
+            <summary>
+            Online Sınav  Sorular Tablosu: Bu tabloya ui tarafında ekleme, güncelleme, silme yapılır. Bu tablonun amacı hocanın kendi alanına ait soruları girmesidir.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.Id">
+            <summary>
+            Sorunun idsi boş bırakılmalı
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.Soru">
+             <summary>
+            Soru
+             </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.DogruCevap">
+            <summary>
+            Sorunun doğru cevabı.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.Cevap1">
+            <summary>
+            Soru yanlış cevaplarından
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.Cevap2">
+            <summary>
+            Soru yanlış cevaplarından
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.Cevap3">
+            <summary>
+            Soru yanlış cevaplarından
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.Cevap4">
+            <summary>
+            Soru yanlış cevaplarından
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.SoruAlani">
+            <summary>
+            Soruyu ekleyen hocanın alanı
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossSorular.Zorluk">
+             <summary>
+            sorunun zorluk derecesi
+             </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossYonetici">
+            <summary>
+            Yonetici Tablosu: Bu tabloya ui tarafında ekleme, güncelleme, silme yapılır. 
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossYonetici.Id">
+            <summary>
+            Boş bırakılmalı
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossYonetici.Mail">
+            <summary>
+            Mail giriş için
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossYonetici.Sifre">
+            <summary>
+            Sifre  giriş için. 
+            </summary>
+        </member>
+        <member name="T:AossAPI.Models.AossZorlukPuanlama">
+            <summary>
+            Zorluk Puanlama Tablosu: Bu tabloya ui tarafında ekleme, silme, güncelleme yapılır. Sınav oluşturulurken ikinci olarak doldurulması gereken tablodur. Amaç oluşturulacak sınavın zorluklarının puanlarının tutulmasıdır.
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossZorlukPuanlama.Id">
+            <summary>
+            Boş brakılmalı
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossZorlukPuanlama.KolayPuan">
+            <summary>
+            Kolay sorular kaç puan
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossZorlukPuanlama.OrtaPuan">
+            <summary>
+            Orta sorular kaç puan
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossZorlukPuanlama.ZorPuan">
+            <summary>
+            Zor sorular kaç puan
+            </summary>
+        </member>
+        <member name="P:AossAPI.Models.AossZorlukPuanlama.OnlineSinavId">
+            <summary>
+            Online sınavın idsi
             </summary>
         </member>
     </members>

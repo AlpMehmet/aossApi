@@ -1,6 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 
 namespace AossAPI.Models{
+     /// <summary>
+    /// Online Sınav Ogrenci Sorular Tablosu: Bu tabloya ui tarafında ekleme, silme, güncelleme yapılmaz. Bu tablonun amacı öğrencilerin girecekleri sınavlara ait randomize değişmiş sorularını ve öğrencinin soruya verdiği cevabı tutmaktır.
+    /// </summary>
     public class AossOnlineSinavOgrenciSorular
 
     {
