@@ -21,16 +21,36 @@ namespace AossAPI.Controllers
             _context = context;
         }
 
-        // GET: api/AossOnlineSinavSorular
+         /// <summary>
+        ///Tüm sınavlar için girilmiş soruları getirir uida kullanılmasına gerek yok
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossOnlineSinavSorular
+        /// </remarks>
+        /// <response code="201">Sınav sorularının listesi json olarak döner</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<AossOnlineSinavSorular>>> GetAossOnlineSinavSorular()
         {
             return await _context.AossOnlineSinavSorular.ToListAsync();
         }
-         
+         /// <summary>
+        ///Oluşturulan sınava tüm veriler girildikten sonra(onlinesinav, onlinesinavsorular, zorlukpuanlama) sınav oluşturma işlemi için burası çalıştırılır. Burada bu sınava girecek tüm öğrenciler için ayrı kitapçık oluşturma işlemi yapılır. Saat kontrol ve veri tabanı update de burada yapılmalı
+        /// 
+       ///Bu kısımda hem AossOnlineSinavOgrenciSorular tablosuna hemde  AossOnlineSinavOgrenci tablosuna ekleme işlemleri yapılır.
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossOnlineSinavSorular/KaydiBitir/1
+        /// </remarks>
+        /// <response code="201">Eğer hata yok ise 1 döner hata varsa -1 vveya hata mesajı döner.</response>
         [HttpGet("KaydiBitir/{OnlineSinavId}")]
+     [ProducesResponseType(StatusCodes.Status201Created)]
         public long Giris(int OnlineSinavId)
-        {//AossOnlineSinavOgrenci
+        {
             AossOnlineSinav sinav = _context.AossOnlineSinav.Where(x => x.Id == OnlineSinavId).FirstOrDefault();
             if(sinav==null){
                 return -1;
@@ -232,9 +252,14 @@ namespace AossAPI.Controllers
             }
             return 1;
         }   
+        /// <summary>
+        ///uida kullanılmasına gerek yok
+       /// </summary>
 
-        // GET: api/AossOnlineSinavSorular/5
+        
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+
         public async Task<ActionResult<AossOnlineSinavSorular>> GetAossOnlineSinavSorular(long id)
         {
             var aossOnlineSinavSorular = await _context.AossOnlineSinavSorular.FindAsync(id);
@@ -247,9 +272,9 @@ namespace AossAPI.Controllers
             return aossOnlineSinavSorular;
         }
 
-        // PUT: api/AossOnlineSinavSorular/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        ///uida kullanılmasına gerek yok
+       /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAossOnlineSinavSorular(long id, AossOnlineSinavSorular aossOnlineSinavSorular)
         {
@@ -279,10 +304,30 @@ namespace AossAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/AossOnlineSinavSorular
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Sınav için soru ekleme kısmıdır. Eklenmek istenen soru gerekli kontrollerden geçirilir(puanlamaya göre soru eklenebilir mi buna bakılır daha sonra 100 puan kontrolü yapılır) daha sonra sorunun ekleme işlemi yapılır.
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001/api/AossOnlineSinavSorular
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     POST 
+        ///     {
+        ///        "onlineSinavId": 1,
+        ///        "soruId": 1
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="aossOnlineSinavSorular"> Eklenecek bilgiler json formatında olmalı </param>
+        /// <response code="201">Eğer ekleme başarılı ise eklenen bilgileri json formatında döner veya ekleme başırısız veya puana göre ekleme yapılamayacağı gibi hata mesajlarından biri döner. </response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+
         public async Task<ActionResult<AossOnlineSinavSorular>> PostAossOnlineSinavSorular(AossOnlineSinavSorular aossOnlineSinavSorular)
         {
             float yeniGelen = 0 , toplamPuan = 0;

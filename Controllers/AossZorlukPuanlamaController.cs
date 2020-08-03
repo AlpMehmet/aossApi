@@ -21,15 +21,35 @@ namespace AossAPI.Controllers
             _context = context;
         }
 
-        // GET: api/AossZorlukPuanlama
+         /// <summary>
+        /// Verilerin listelenmesi
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossZorlukPuanlama
+        /// </remarks>
+        /// <response code="201">Tablodaki verilerin listesi json olarak döner</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<AossZorlukPuanlama>>> GetAossZorlukPuanlama()
         {
             return await _context.AossZorlukPuanlama.ToListAsync();
         }
 
-        // GET: api/AossZorlukPuanlama/5
+        /// <summary>
+        ///İdsi girilen verinin bilgisi gelir
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossZorlukPuanlama/1
+        /// </remarks>
+        /// <param name="id"> id parametresi </param>
+        /// <response code="201">Seçili veri json olarak döner</response>
+        
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AossZorlukPuanlama>> GetAossZorlukPuanlama(long id)
         {
             var aossZorlukPuanlama = await _context.AossZorlukPuanlama.FindAsync(id);
@@ -42,10 +62,33 @@ namespace AossAPI.Controllers
             return aossZorlukPuanlama;
         }
 
-        // PUT: api/AossZorlukPuanlama/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Verinin güncelleme işlemi
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001/api/AossZorlukPuanlama/1
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     PUT 
+        ///   {
+        ///     "id": 1,
+        ///     "kolayPuan": 10,
+        ///     "ortaPuan": 10,
+        ///     "zorPuan": 10,
+        ///     "onlineSinavId": 3
+        ///   }
+        ///
+        /// </remarks>
+        /// <param name="id"> id parametresi verinin idsidir. </param>
+        /// <param name="aossZorlukPuanlama"> Güncellenecek bilgiler json formatında olmalı</param>
+        /// <response code="201">Güncellenen bilgiler json formatında döner</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> PutAossZorlukPuanlama(long id, AossZorlukPuanlama aossZorlukPuanlama)
         {
             if (id != aossZorlukPuanlama.Id)
@@ -74,10 +117,31 @@ namespace AossAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/AossZorlukPuanlama
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Veri ekleme işlemi. Sınav için hocanın girmesi gereken puanlama kısmı bu kısım ikinci olarak onlinesınav verileri girildikten sonra girilmeli  
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001/api/AossZorlukPuanlama
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     POST 
+        ///   {
+        ///     "kolayPuan": 10,
+        ///     "ortaPuan": 10,
+        ///     "zorPuan": 10,
+        ///     "onlineSinavId": 3
+        ///   }
+        ///
+        /// </remarks>
+        /// <param name="aossZorlukPuanlama"> Eklenecek bilgiler json formatında olmalı</param>
+        /// <response code="201">Eklenen verinin bilgileri json formatında döner</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AossZorlukPuanlama>> PostAossZorlukPuanlama(AossZorlukPuanlama aossZorlukPuanlama)
         {
             _context.AossZorlukPuanlama.Add(aossZorlukPuanlama);

@@ -20,16 +20,33 @@ namespace AossAPI.Controllers
         {
             _context = context;
         }
-
-        // GET: api/AossOnlineSinav
+         /// <summary>
+        ///Sınav listeleme
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossOnlineSinav
+        /// </remarks>
+        /// <response code="201">Sınavların listesi json olarak döner</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<AossOnlineSinav>>> GetAossOnlineSinav()
         {
             return await _context.AossOnlineSinav.ToListAsync();
         }
-
-        // GET: api/AossOnlineSinav/5
+        /// <summary>
+        ///İdsi girilen sınavın bilgisi gelir
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossOnlineSinav/1
+        /// </remarks>
+        /// <param name="id"> id parametresi sınavın idsidir. </param>
+        /// <response code="201">Seçili sınav bilgileri json olarak döner</response>
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AossOnlineSinav>> GetAossOnlineSinav(long id)
         {
             var aossOnlineSinav = await _context.AossOnlineSinav.FindAsync(id);
@@ -42,10 +59,35 @@ namespace AossAPI.Controllers
             return aossOnlineSinav;
         }
 
-        // PUT: api/AossOnlineSinav/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Sınav güncelleme işlemi
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001//api/AossOnlineSinav/1
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     PUT 
+        ///     {
+        ///         "id": 1,    
+        ///        "baslama": "02.08.2020 18:15",
+        ///         "bitis": "02.08.2020 19:15",
+        ///         "sure": "60",
+        ///         "alan": "Matematik"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="aossOnlineSinav"> Online sınav verileri. Json formatında</param>
+        /// <param name="id"> id parametresi sınavın idsidir.</param>
+        /// <response code="201">Güncellenen sınavın bilgileri json formatında döner</response>
+
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+
         public async Task<IActionResult> PutAossOnlineSinav(long id, AossOnlineSinav aossOnlineSinav)
         {
             if (id != aossOnlineSinav.Id)
@@ -74,10 +116,31 @@ namespace AossAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/AossOnlineSinav
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Sınav Ekleme işlemi
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001//api/AossOnlineSinav
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     POST 
+        ///     {
+        ///        "baslama": "02.08.2020 18:15",
+        ///         "bitis": "02.08.2020 19:15",
+        ///         "sure": "60",
+        ///         "alan": "Matematik"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="aossOnlineSinav"> Online sınav verileri. Json formatında</param>
+        /// <response code="201">Eklenen sınavın bilgileri json formatında döner</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AossOnlineSinav>> PostAossOnlineSinav(AossOnlineSinav aossOnlineSinav)
         {
             _context.AossOnlineSinav.Add(aossOnlineSinav);

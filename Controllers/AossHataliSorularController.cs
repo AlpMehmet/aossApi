@@ -10,6 +10,7 @@ using AossApi.Models;
 
 namespace AossAPI.Controllers
 {
+    
     [Route("api/[controller]")]
     [ApiController]
     public class AossHataliSorularController : ControllerBase
@@ -20,11 +21,21 @@ namespace AossAPI.Controllers
         {
             _context = context;
         }
-        // GET: api/AossHataliSorular
+        /// <summary>
+        ///Alana göre hatalı soruları getirmek için kullanılır listeleme
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossHataliSorular/Matematik
+        /// </remarks>
+        /// <param name="alan"> id parametresi sorunun idsidir. </param>
+        /// <response code="201">Hocaların listesi json olarak döner</response>        
         [HttpGet("{alan}")]
-        public ActionResult<IEnumerable<AossSorular>> GetAossHataliSorularSoru(string Alan)
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public ActionResult<IEnumerable<AossSorular>> GetAossHataliSorularSoru(string alan)
         {
-            List<AossHataliSorular> hataliSorular = _context.AossHataliSorular.Where(x=> x.Alani==Alan).ToList();
+            List<AossHataliSorular> hataliSorular = _context.AossHataliSorular.Where(x=> x.Alani==alan).ToList();
             List<AossSorular> sorular = new List<AossSorular>();
             foreach (var hatali in hataliSorular)
             {
@@ -33,8 +44,18 @@ namespace AossAPI.Controllers
             
             return  sorular;
         }
-
+        /// <summary>
+        /// Hoca hatalı soru olarak işaretlenen soruya hatalı diyecekse bu çalıştırılmalı. Yapılan işlem hatalı işaretlenen soruya kaç oy verileceğini hesaplamak eğer ki bu sayıya ulaşılamışsa oy çoğunluğuna göre tabloyu güncelleyip hatalı mı değilmi yazmak eğerki ulaşılmamışsa hatalı sayısında arttırma yapmak.
+        /// </summary>
+        /// /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossHataliSorular/hatali/1
+        /// </remarks>
+        /// <param name="id"> id parametresi sorunun idsidir. </param>
+        /// <response code="201">Güncellenen tablo verisi json olarak döner</response>
         [HttpPut("hatali/{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
          public async Task<IActionResult> PutAossHataliSorularHatali(long id)
          {
             AossSorular hataliSoru0 = _context.AossSorular.Where(x => x.Id == id).FirstOrDefault();
@@ -76,6 +97,16 @@ namespace AossAPI.Controllers
 
             return NoContent();
         }
+        /// <summary>
+        /// Hoca hatalı soru olarak işaretlenen soruya hatasız diyecekse bu çalıştırılmalı. Yapılan işlem hatalı işaretlenen soruya kaç oy verileceğini hesaplamak eğer ki bu sayıya ulaşılamışsa oy çoğunluğuna göre tabloyu güncelleyip hatalı mı değilmi yazmak eğerki ulaşılmamışsa hatasız sayısında arttırma yapmak.
+        /// </summary>
+        /// /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossHataliSorular/hatasiz/1
+        /// </remarks>
+        /// <param name="id"> id parametresi sorunun idsidir. </param>
+        /// <response code="201">Güncellenen tablo verisi json olarak döner</response>
         [HttpPut("hatasiz/{id}")]
          public async Task<IActionResult> PutAossHataliSorularHatasiz(long id )
          {
@@ -119,7 +150,9 @@ namespace AossAPI.Controllers
             return NoContent();
         }
 
-    
+         /// <summary>
+        /// Hatalı soru kaydetme işlemi ui tarafında kullanılmasına gerek yok.
+        /// </summary>
         [HttpPost]
         public async Task<ActionResult<AossHataliSorular>> PostAossHataliSorular(AossHataliSorular aossHataliSorular)
         {
@@ -128,7 +161,6 @@ namespace AossAPI.Controllers
 
             return CreatedAtAction("GetAossHataliSorular", new { id = aossHataliSorular.Id }, aossHataliSorular);
         }
-        // DELETE: api/AossHataliSorular/5
         [HttpDelete("{id}")]
         public async Task<ActionResult<AossHataliSorular>> DeleteAossHataliSorular(long id)
         {

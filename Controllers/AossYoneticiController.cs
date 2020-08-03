@@ -21,15 +21,35 @@ namespace AossAPI.Controllers
             _context = context;
         }
 
-        // GET: api/AossYonetici
+         /// <summary>
+        ///Yönetici listeleme
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossYonetici
+        /// </remarks>
+        /// <response code="201">Yöneticilerin listesi json olarak döner</response>
         [HttpGet]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<IEnumerable<AossYonetici>>> GetAossYonetici()
         {
             return await _context.AossYonetici.ToListAsync();
         }
 
-        // GET: api/AossYonetici/5
+        /// <summary>
+        ///İdsi girilen yöneticinin  bilgisi gelir
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossYonetici/1
+        /// </remarks>
+        /// <param name="id"> id parametresi yöneticinin idsidir. </param>
+        /// <response code="201">Seçili yönetici json olarak döner</response>
+        
         [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AossYonetici>> GetAossYonetici(long id)
         {
             var aossYonetici = await _context.AossYonetici.FindAsync(id);
@@ -41,7 +61,19 @@ namespace AossAPI.Controllers
 
             return aossYonetici;
         }
+        /// <summary>
+        ///Yöneticinin sisteme girişi içindir. Mail ve şifre girilmelidir.
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossYonetici/örnek@örnek.com/123123
+        /// </remarks>
+        /// <param name="Mail"> Mail parametresi yöneticinin mail adresidir. </param>
+        /// <param name="Sifre"> Şifre parametresi yöneticinin şifresidir.  </param>
+        /// <response code="201">Eğer ki giriş başarılı ise yöneticinin id verisi döner başarısız ise -1 döner.</response>  
         [HttpGet("{Mail}/{Sifre}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public long Giris(string Mail, string Sifre)
         {
             AossYonetici a = _context.AossYonetici.Where(x => x.Mail == Mail && x.Sifre == Sifre).FirstOrDefault();
@@ -52,8 +84,31 @@ namespace AossAPI.Controllers
                 return a.Id;
             }
         }  
-        // PUT: api/AossYonetici/5
+        /// <summary>
+        /// Yöneticinin güncelleme işlemi
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001/api/AossYonetici/1
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     PUT 
+        ///     {
+        ///         "id": 1,    
+        ///        "mail": "örnek@örnek.com",
+        ///         "sifre": "21313sadasdsvc213",
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="id"> id parametresi yöneticinin idsidir. </param>
+        /// <param name="aossYonetici"> Güncellenecek bilgiler json formatında olmalı</param>
+        /// <response code="201">Güncellenen yöneticinin bilgileri json formatında döner</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> PutAossYonetici(long id, AossYonetici aossYonetici)
         {
             if (id != aossYonetici.Id)
@@ -82,8 +137,29 @@ namespace AossAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/AossYonetici
+        /// <summary>
+        /// Yönetici ekleme işlemi
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001/api/AossYonetici
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     POST 
+        ///     {
+        ///        "mail": "örnekY@örnek.com",
+        ///         "sifre": "yö123",
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="aossYonetici"> Eklenecek bilgiler json formatında olmalı</param>
+        /// <response code="201">Eklenen yöneticinin bilgileri json formatında döner</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AossYonetici>> PostAossYonetici( AossYonetici aossYonetici)
         {
             _context.AossYonetici.Add(aossYonetici);

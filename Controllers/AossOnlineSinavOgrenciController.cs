@@ -10,25 +10,30 @@ using AossApi.Models;
 
 namespace AossAPI.Controllers
 {
+
     [Route("api/[controller]")]
     [ApiController]
     public class AossOnlineSinavOgrenciController : ControllerBase
     {
+   
         private readonly AossContext _context;
 
         public AossOnlineSinavOgrenciController(AossContext context)
         {
             _context = context;
         }
-
-        // GET: api/AossOnlineSinavOgrenci
+         /// <summary>
+        ///Ui tarafında kullanılmasına gerek yok
+       /// </summary>
         [HttpGet]
         public async Task<ActionResult<IEnumerable<AossOnlineSinavOgrenci>>> GetAossOnlineSinavOgrenci()
         {
             return await _context.AossOnlineSinavOgrenci.ToListAsync();
         }
 
-        // GET: api/AossOnlineSinavOgrenci/5
+         /// <summary>
+        ///Ui tarafında kullanılmasına gerek yok
+       /// </summary>
         [HttpGet("{id}")]
         public async Task<ActionResult<AossOnlineSinavOgrenci>> GetAossOnlineSinavOgrenci(long id)
         {
@@ -42,9 +47,9 @@ namespace AossAPI.Controllers
             return aossOnlineSinavOgrenci;
         }
 
-        // PUT: api/AossOnlineSinavOgrenci/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+         /// <summary>
+        ///Ui tarafında kullanılmasına gerek yok
+       /// </summary>
         [HttpPut("{id}")]
         public async Task<IActionResult> PutAossOnlineSinavOgrenci(long id, AossOnlineSinavOgrenci aossOnlineSinavOgrenci)
         {
@@ -74,9 +79,9 @@ namespace AossAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/AossOnlineSinavOgrenci
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+         /// <summary>
+        ///Ui tarafında kullanılmasına gerek yok
+       /// </summary>
         [HttpPost]
         public async Task<ActionResult<AossOnlineSinavOgrenci>> PostAossOnlineSinavOgrenci(AossOnlineSinavOgrenci aossOnlineSinavOgrenci)
         {
@@ -86,7 +91,9 @@ namespace AossAPI.Controllers
             return CreatedAtAction("GetAossOnlineSinavOgrenci", new { id = aossOnlineSinavOgrenci.Id }, aossOnlineSinavOgrenci);
         }
 
-        // DELETE: api/AossOnlineSinavOgrenci/5
+         /// <summary>
+        ///Ui tarafında kullanılmasına gerek yok
+       /// </summary>
         [HttpDelete("{id}")]
         public async Task<ActionResult<AossOnlineSinavOgrenci>> DeleteAossOnlineSinavOgrenci(long id)
         {

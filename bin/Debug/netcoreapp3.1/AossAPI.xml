@@ -4,6 +4,354 @@
         <name>AossAPI</name>
     </assembly>
     <members>
+        <member name="M:AossAPI.Controllers.AossHataliSorularController.GetAossHataliSorularSoru(System.String)">
+             <summary>
+             Creates a TodoItem.
+             </summary>
+             <remarks>
+             Sample request:
+            
+                 POST /Todo
+                 {
+                    "id": 1,
+                    "name": "Item1",
+                    "isComplete": true
+                 }
+            
+             </remarks>
+             <param name="item"></param>
+             <response code="201">Returns the newly created item</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossHataliSorularController.PutAossHataliSorularHatali(System.Int64)">
+            <summary>
+            Hoca hatalı soru olarak işaretlenen soruya hatalı diyecekse bu çalıştırılmalı. Yapılan işlem hatalı işaretlenen soruya kaç oy verileceğini hesaplamak eğer ki bu sayıya ulaşılamışsa oy çoğunluğuna göre tabloyu güncelleyip hatalı mı değilmi yazmak eğerki ulaşılmamışsa hatalı sayısında arttırma yapmak.
+            </summary>
+            /// <remarks>
+            Örnek istek:
+            
+            https://localhost:5001/api/AossHataliSorular/hatali/1
+            </remarks>
+            <param name="id"> id parametresi sorunun idsidir. </param>
+            <response code="201">Güncellenen tablo verisi json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossHataliSorularController.PutAossHataliSorularHatasiz(System.Int64)">
+            <summary>
+            Hoca hatalı soru olarak işaretlenen soruya hatasız diyecekse bu çalıştırılmalı. Yapılan işlem hatalı işaretlenen soruya kaç oy verileceğini hesaplamak eğer ki bu sayıya ulaşılamışsa oy çoğunluğuna göre tabloyu güncelleyip hatalı mı değilmi yazmak eğerki ulaşılmamışsa hatasız sayısında arttırma yapmak.
+            </summary>
+            /// <remarks>
+            Örnek istek:
+            
+            https://localhost:5001/api/AossHataliSorular/hatasiz/1
+            </remarks>
+            <param name="id"> id parametresi sorunun idsidir. </param>
+            <response code="201">Güncellenen tablo verisi json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossHataliSorularController.PostAossHataliSorular(AossAPI.Models.AossHataliSorular)">
+            <summary>
+            Hatalı soru kaydetme işlemi ui tarafında kullanılmasına gerek yok.
+            </summary>
+        </member>
+        <member name="M:AossAPI.Controllers.AossHocaController.GetAossHoca">
+             <summary>
+            Hoca listeleme
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossHoca
+             </remarks>
+             <response code="201">Hocaların listesi json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossHocaController.GetAossHoca(System.Int64)">
+             <summary>
+            İdsi girilen hocanın bilgisi gelir
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossHoca/1
+             </remarks>
+             <param name="id"> id parametresi hocanın idsidir. </param>
+             <response code="201">Seçili hoca json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossHocaController.Giris(System.String,System.String)">
+             <summary>
+            Hocanın sisteme girişi içindir. Mail ve şifre girilmelidir.
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossHoca/örnek@örnek.com/123123
+             </remarks>
+             <param name="mail"> Mail parametresi hocanın mail adresidir. </param>
+             <param name="Sifre"> Şifre parametresi hocanın şifresidir.  </param>
+             <response code="201">Eğer ki giriş başarılı ise hocanın id verisi döner başarısız ise -1 döner.</response>  
+        </member>
+        <member name="M:AossAPI.Controllers.AossHocaController.PutAossHoca(System.Int64,AossAPI.Models.AossHoca)">
+             <summary>
+             Hoca güncelleme işlemi
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             isteğin url kısmı:
+             
+             https://localhost:5001/api/AossHoca/1
+             
+             isteğin bodykısmı:
+             
+                 PUT 
+                 {
+                     "id": 1,    
+                    "mail": "örnek@örnek.com",
+                     "sifre": "21313sadasdsvc213",
+                     "adSoyad": "Örnek ör",
+                     "alani": "Matematik"
+                 }
+            
+             </remarks>
+             <param name="id"> id parametresi hocanın idsidir. </param>
+             <param name="aossHoca"> Güncellenecek bilgiler json formatında olmalı</param>
+             <response code="201">Güncellenen hocanın bilgileri json formatında döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossHocaController.PostAossHoca(AossAPI.Models.AossHoca)">
+             <summary>
+             Hoca ekleme işlemi
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             isteğin url kısmı:
+             
+             https://localhost:5001/api/AossHoca
+             
+             isteğin bodykısmı:
+             
+                 POST 
+                 {
+                     "mail": "örnek@örnek.com",
+                     "sifre": "21313sadasdsvc213",
+                     "adSoyad": "Örnek ör",
+                     "alani": "Matematik"
+                 }
+            
+             </remarks>
+             <param name="aossHoca"> Eklenecek bilgiler json formatında olmalı</param>
+             <response code="201">Eklenen hocanın bilgileri json formatında döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOgrenciController.GetAossOgrenci">
+             <summary>
+            Öğrenci listeleme
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossOgrenci
+             </remarks>
+             <response code="201">Öğrencilerin listesi json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOgrenciController.GetAossOgrenci(System.Int64)">
+             <summary>
+            İdsi girilen öğrencinin bilgisi gelir
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossOgrenci/1
+             </remarks>
+             <param name="id"> id parametresi öğrencinin idsidir. </param>
+             <response code="201">Seçili öğrencinin json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOgrenciController.Giris(System.Int32,System.String)">
+             <summary>
+            Öğrencinin sisteme girişi içindir. Öğrenci numarası ve şifre girilmelidir.
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossOgrenci/213132113321/123123
+             </remarks>
+             <param name="OgrenciNo"> Mail parametresi öğrencinin öğrenci numarasıdır.</param>
+             <param name="Sifre"> Şifre parametresi öğrencinin şifresidir.  </param>
+             <response code="201">Eğer ki giriş başarılı ise öğrencinin int olarak id verisi döner başarısız ise int olarak -1 döner.</response>  
+        </member>
+        <member name="M:AossAPI.Controllers.AossOgrenciController.soruIs(System.Int32,System.String)">
+             <summary>
+            Öğrencinin sinav ekranında soru işaretlemesi içindir. 
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossOgrenci/Sinav/Cevap/1/A
+             </remarks>
+             <param name="OnlineSinavOgrenciSorularId"> OnlineSinavOgrenciSorularId öğrencinin cevapladığı sorunun(randomize edilmiş sorunun) idsidir.</param>
+             <param name="isaretli"> Öğrencinin işaretlediği cevap şıkkıdır.A,B,C,D veya E  </param>
+             <response code="201">Eğer ekleme başarılı olursa string olarak "Ekleme Sorunsuz Yapıldı" döner. Daha önceden eklenmiş ise string olarak "Soru Daha Önceden Kayıt Edilmiş" döner.</response>      
+        </member>
+        <member name="M:AossAPI.Controllers.AossOgrenciController.soruIs(System.Int32)">
+             <summary>
+            Sınavı bitirmek için çalıştırılmalıdır. 
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossOgrenci/Sinav/Bitir/11
+             </remarks>
+             <param name="OnlineSinavOgrenciId">OnlineSinavOgrenciId verisi girilmelidir. Sınav oluşturulurken bu veri tutulabilir.</param>
+             <response code="201">Girilen veride yanlışlık yoksa hocanın girdiği kriterlere göre öğrecinin puanı string olarak döndürülür.</response>  
+        </member>
+        <member name="M:AossAPI.Controllers.AossOgrenciController.PutAossOgrenci(System.Int64,AossAPI.Models.AossOgrenci)">
+             <summary>
+             Öğrenci güncelleme işlemi
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             isteğin url kısmı:
+             
+             https://localhost:5001/api/AossOgrenci/1
+             
+             isteğin bodykısmı:
+             
+                 PUT 
+                 {
+                     "id": 1,    
+                    "öğrenciNo": "2131313123",
+                     "sifre": "2131sadsdasd",
+                     "adSoyad": "Örnek ör2",
+                     "alani": "Matematik"
+                 }
+            
+             </remarks>
+             <param name="id"> id parametresi öğrencinin idsidir. </param>
+             <param name="aossOgrenci"> Güncellenecek bilgiler json formatında olmalı</param>
+             <response code="201">Güncellenen öğrencinin bilgileri json formatında döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOgrenciController.PostAossOgrenci(AossAPI.Models.AossOgrenci)">
+             <summary>
+             Öğrenci ekleme işlemi
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             isteğin url kısmı:
+             
+             https://localhost:5001/api/AossHoca
+             
+             isteğin bodykısmı:
+             
+                 POST 
+                 {
+                     "ogrenciNo": "21313213131",
+                     "sifre": "21313sadasdsvc213",
+                     "adSoyad": "Örnek ör2",
+                     "alani": "Matematik"
+                 }
+            
+             </remarks>
+             <param name="aossOgrenci"> Eklenecek bilgiler json formatında olmalı</param>
+             <response code="201">Eklenen öğrencinin bilgileri json formatında döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavController.GetAossOnlineSinav">
+             <summary>
+            Sınav listeleme
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossOnlineSinav
+             </remarks>
+             <response code="201">Sınavların listesi json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavController.GetAossOnlineSinav(System.Int64)">
+             <summary>
+            İdsi girilen sınavın bilgisi gelir
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             https://localhost:5001/api/AossOnlineSinav/1
+             </remarks>
+             <param name="id"> id parametresi sınavın idsidir. </param>
+             <response code="201">Seçili sınav bilgileri json olarak döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavController.PutAossOnlineSinav(System.Int64,AossAPI.Models.AossOnlineSinav)">
+             <summary>
+             Sınav güncelleme işlemi
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             isteğin url kısmı:
+             
+             https://localhost:5001//api/AossOnlineSinav/1
+             
+             isteğin bodykısmı:
+             
+                 PUT 
+                 {
+                     "id": 1,    
+                    "baslama": "02.08.2020 18:15",
+                     "bitis": "02.08.2020 19:15",
+                     "sure": "60",
+                     "alan": "Matematik"
+                 }
+            
+             </remarks>
+             <param name="aossOnlineSinav"> Online sınav verileri. Json formatında</param>
+             <param name="id"> id parametresi sınavın idsidir.</param>
+             <response code="201">Güncellenen sınavın bilgileri json formatında döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavController.PostAossOnlineSinav(AossAPI.Models.AossOnlineSinav)">
+             <summary>
+             Sınav Ekleme işlemi
+             </summary>
+             <remarks>
+             Örnek istek:
+             
+             isteğin url kısmı:
+             
+             https://localhost:5001//api/AossOnlineSinav
+             
+             isteğin bodykısmı:
+             
+                 POST 
+                 {
+                    "baslama": "02.08.2020 18:15",
+                     "bitis": "02.08.2020 19:15",
+                     "sure": "60",
+                     "alan": "Matematik"
+                 }
+            
+             </remarks>
+             <param name="aossOnlineSinav"> Online sınav verileri. Json formatında</param>
+             <response code="201">Eklenen sınavın bilgileri json formatında döner</response>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavOgrenciController.GetAossOnlineSinavOgrenci">
+             <summary>
+            Ui tarafında kullanılmasına gerek yok
+             </summary>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavOgrenciController.GetAossOnlineSinavOgrenci(System.Int64)">
+             <summary>
+            Ui tarafında kullanılmasına gerek yok
+             </summary>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavOgrenciController.PutAossOnlineSinavOgrenci(System.Int64,AossAPI.Models.AossOnlineSinavOgrenci)">
+             <summary>
+            Ui tarafında kullanılmasına gerek yok
+             </summary>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavOgrenciController.PostAossOnlineSinavOgrenci(AossAPI.Models.AossOnlineSinavOgrenci)">
+             <summary>
+            Ui tarafında kullanılmasına gerek yok
+             </summary>
+        </member>
+        <member name="M:AossAPI.Controllers.AossOnlineSinavOgrenciController.DeleteAossOnlineSinavOgrenci(System.Int64)">
+             <summary>
+            Ui tarafında kullanılmasına gerek yok
+             </summary>
+        </member>
         <member name="T:AossAPI.Models.AossHataliSorular">
             <summary>
             Hatalı Sorular Tablosu: Bu tabloya ui tarafında ekleme, silme, güncelleme yapılmaz. Bu tablonun amacı hatalı olan soruları tutmak ve oylamasının yapılmasıdır.

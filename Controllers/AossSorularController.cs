@@ -22,28 +22,36 @@ namespace AossAPI.Controllers
         {
             _context = context;
         }
-
-        // GET: api/AossSorular
-        [HttpGet]
-        public async Task<ActionResult<IEnumerable<AossSorular>>> GetAossSorular()
+         /// <summary>
+        ///Alana göre Soru listeleme
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossSorular/Matematik
+        /// </remarks>
+        /// <param name="alan">Sorunun alanı</param>
+        /// <response code="201">Soruların listesi json olarak döner</response>
+        [HttpGet("alan")]
+        public async Task<ActionResult<IEnumerable<AossSorular>>> GetAossSorular(string alan)
         {
-            return await _context.AossSorular.ToListAsync();
+            return await _context.AossSorular.Where(x=>x.SoruAlani==alan).ToListAsync();
         }
 
-        // GET: api/AossSorular/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<AossSorular>> GetAossSorular(long id)
-        {
-            var aossSorular = await _context.AossSorular.FindAsync(id);
-
-            if (aossSorular == null)
-            {
-                return NotFound();
-            }
-
-            return aossSorular;
-        }
+        /// <summary>
+        ///Bir soru hatalı olarak işaretlenmek istediğinde burası çalışmalı. Burada soruyu hatalı olarak belirten hocanın alanına göre o alandaki hocaları mail gider ve gerekli tabloya bunun verisi eklenir.
+       /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// https://localhost:5001/api/AossSorular/hataliSoru/1/3
+        /// </remarks>
+        /// <param name="soruId">Hatalı işaretlenmek istenen sorunun idsi girilir.</param>
+        /// <param name="hocaId">Soruyu hatalı işaretleyen hocanın idsi gidilir.</param>
+        /// <response code="201">Doğru bir şekilde mail yollama ve eklenme yapıldıysa string olarak "Mailler Yollandı Ve Soru Oylama İşlemine Kadar Hatalı Olarak İşaretlendi" mesajı döner eğer hata ile karşılaşılırsa string olarak hata mesajı döndürülür.</response>  
         [HttpGet("hataliSoru/{soruId}/{hocaId}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]        
+
         public string hataliSoru(long soruId, long hocaId)
         {
             MailMessage mesaj = new MailMessage();
@@ -90,10 +98,37 @@ namespace AossAPI.Controllers
                  }
             }
         }  
-        // PUT: api/AossSorular/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for
-        // more details, see https://go.microsoft.com/fwlink/?linkid=2123754.
+        /// <summary>
+        /// Soru güncelleme işlemi 
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001/api/AossSorular/1
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     PUT 
+        ///     {
+        /// "id": 0,
+        ///  "soru": "soru?",
+        /// "dogruCevap": "doğrucevap",
+        /// "cevap1": "cevap1",
+        /// "cevap2": "cevap2",
+        /// "cevap3": "cevap3",
+        /// "cevap4": "cevap4",
+        /// "soruAlani": "Matematik",
+        /// "zorluk": "ZOR"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="id"> id parametresi sorunun idsidir. </param>
+        /// <param name="aossSorular"> Güncellenecek bilgiler json formatında olmalı</param>
+        /// <response code="201">Güncellenen sorunun bilgileri json formatında döner</response>
         [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> PutAossSorular(long id, AossSorular aossSorular)
         {
             if (id != aossSorular.Id)
@@ -122,8 +157,35 @@ namespace AossAPI.Controllers
             return NoContent();
         }
 
-        // POST: api/AossSorular
+        /// <summary>
+        /// Soru ekleme işlemi
+        /// </summary>
+        /// <remarks>
+        /// Örnek istek:
+        /// 
+        /// isteğin url kısmı:
+        /// 
+        /// https://localhost:5001/api/AossSorular
+        /// 
+        /// isteğin bodykısmı:
+        /// 
+        ///     POST 
+        ///     {
+        ///     "soru": "soru?",
+        ///     "dogruCevap": "doğrucevap",
+        ///     "cevap1": "cevap1",
+        ///     "cevap2": "cevap2",
+        ///     "cevap3": "cevap3",
+        ///     "cevap4": "cevap4",
+        ///     "soruAlani": "Matematik",
+        ///     "zorluk": "ZOR"
+        ///     }
+        ///
+        /// </remarks>
+        /// <param name="aossSorular"> Eklenecek bilgiler json formatında olmalı</param>
+        /// <response code="201">Eklenen hocanın bilgileri json formatında döner</response>
         [HttpPost]
+        [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<ActionResult<AossSorular>> PostAossSorular(AossSorular aossSorular)
         {
             _context.AossSorular.Add(aossSorular);
